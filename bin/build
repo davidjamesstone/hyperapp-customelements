@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cat examples/component/child-view.html | node_modules/hyperviews/bin/cmd.js --mode browser > examples/component/child-view.js
+cat examples/component/parent-view.html | node_modules/hyperviews/bin/cmd.js --mode browser > examples/component/parent-view.js

@@ -1,0 +1,41 @@
+{
+  "name": "hyperapp-customelements",
+  "version": "0.0.1",
+  "description": "Web Components Custom Elements library for hyperapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard",
+    "build": "bin/build",
+    "build:app": "bin/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidjamesstone/hyperapp-customelements.git"
+  },
+  "keywords": [
+    "hyperapp",
+    "custom elements",
+    "web components"
+  ],
+  "author": "davidjamesstone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidjamesstone/hyperapp-customelements/issues"
+  },
+  "homepage": "https://github.com/davidjamesstone/hyperapp-customelements#readme",
+  "peerDependencies": {
+    "hyperapp": "^1.0.2"
+  },
+  "devDependencies": {
+    "browserify": "^15.2.0",
+    "ce-v0": "^0.2.2",
+    "hyperapp": "^1.1.2",
+    "hyperviewify": "^1.0.0",
+    "standard": "^10.0.3"
+  },
+  "standard": {
+    "ignore": [
+      "examples"
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+<div>
+  <div if="state.user" key="{state.user.id.value}" class="card">
+    <!-- <div class="card-image">
+      <figure class="image is-4by3">
+        <x-profile-image mode="large" url="{state.user.picture.large}"></x-profile-image>
+      </figure>
+    </div> -->
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+              <x-profile-image mode="thumbnail" url="{state.user.picture.large}"></x-profile-image>
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4">
+            {state.user.name.title}
+            {state.user.name.first}
+            {state.user.name.last}
+          </p>
+          <p class="subtitle is-6">
+            <x-profile-nationality code="{state.user.nat}"></x-profile-nationality> {state.user.id.name}
+          </p>
+        </div>
+      </div>
+
+      <div class="content">
+
+        <div>
+          <span class="icon has-text-success">
+            <i class="fa fa-phone"></i>
+          </span>
+          <a href="tel:{state.user.phone}">{state.user.phone}</a>
+        </div>
+       
+        <div>
+          <span class="icon has-text-info">
+            <i class="fa fa-birthday-cake"></i>
+          </span>
+          <time datetime="{state.user.registered}">{new Date(state.user.dob).toDateString()}</time>
+        </div>
+
+        <div>
+          <span class="icon has-text-warning">
+            <i class="fa fa-envelope"></i>
+          </span>
+          <a href="mailto:{state.user.email}">{state.user.email}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <aside>
+  <div if="state.user" key="{state.user.id.value}">
+    {state.user.dob}
+    <h3>
+      {state.user.name.title}
+      {state.user.name.first}
+      {state.user.name.last}
+    </h3>
+    <x-profile-image mode="thumbnail" url="{state.user.picture.large}"></x-profile-image>
+    <dl>
+      <dd><a href="mailto:{state.user.email}">{state.user.email}</a></dd>
+      <dd><a href="tel:{state.user.phone}">{state.user.phone}</a></dd>
+      <dd><a href="tel:{state.user.cell}">{state.user.cell}</a></dd>
+      <dd>
+        <div>{state.user.location.street}</div>
+        <div>{state.user.location.city}</div>
+        <div>{state.user.location.postcode}</div>
+        <div>{state.user.location.state}</div>
+      </dd>
+    </dl>
+    <x-profile-nationality code="{state.user.nat}"></x-profile-nationality>
+  </div>
+</aside> -->
