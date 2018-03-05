@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "standard",
-    "build": "bin/build",
-    "build:app": "bin/build"
+    "build": "bin/build"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,0 @@
-#!/bin/bash
-
-browserify examples/app/index.js -t [hyperviewify] > examples/app/build.js
