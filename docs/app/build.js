@@ -7,10 +7,11 @@ module.exports = {
   actions: {
     down: () => state => ({ counter: state.counter - 1 }),
     up: () => state => ({ counter: state.counter + 1 })
-  }, 
+  },
   view: require('./view.html'),
   observedAttributes: ['max']
 }
+
 },{"./view.html":2}],2:[function(require,module,exports){
 module.exports = function view (state, actions) {
   return h('div', { class: 'field has-addons' }, [
@@ -47,6 +48,7 @@ module.exports = {
   },
   view: require('./view.html')
 }
+
 },{"./view.html":6}],6:[function(require,module,exports){
 module.exports = function view (state, actions) {
   return h('nav', { class: 'navbar is-transparent' }, [
@@ -133,7 +135,7 @@ module.exports = {
       if (this.size === 'medium') {
         return this.url.replace('https://randomuser.me/api/portraits/',
           'https://randomuser.me/api/portraits/med/')
-      } else if (this.size === 'thumbnail') { 
+      } else if (this.size === 'thumbnail') {
         return this.url.replace('https://randomuser.me/api/portraits/',
           'https://randomuser.me/api/portraits/thumb/')
       } else {
@@ -153,22 +155,7 @@ module.exports = function view (state, actions) {
 module.exports = {
   name: 'x-profile-nationality',
   view: require('./view.html'),
-  // state: {
-  //   code: ''
-  // },
-  // actions: {
-  //   setCode: code => state => { return { code } },
-  // },
-  observedAttributes: ['code'],
-  // attributeChangedCallback: function (name, oldValue, newValue) {
-  //   // this.actions.setCode(newValue)
-  //   console.log(name)
-  // },
-  // constructor () {
-  //   if (this.hasAttribute('code')) {
-  //     this.actions.setCode(this.getAttribute('code'))
-  //   }
-  // }
+  observedAttributes: ['code']
 }
 
 },{"./view.html":12}],12:[function(require,module,exports){
@@ -189,7 +176,7 @@ module.exports = {
     var url = 'https://randomuser.me/api/?noinfo' + (id ? '&seed=' + id : '')
     var actions = this.actions
 
-    fetch(url, {
+    window.fetch(url, {
       method: 'get'
     }).then(function (response) {
       return response.json()
@@ -198,7 +185,7 @@ module.exports = {
       console.log(user)
       actions.setUser(user)
     }).catch(function (err) {
-      console.error(response)
+      console.error(err)
     })
   },
   attributeChangedCallback: function (name, oldValue, newValue) {
@@ -256,16 +243,16 @@ define(require('./custom-elements/profile-image'))
 var Nationality = define(require('./custom-elements/profile-nationality'))
 var Counter = define(require('./custom-elements/counter'))
 
-
 // Demo programmatically added elements
-const myCounter = new Counter()
-const myNationality = new Nationality()
-myNationality.setAttribute('code', 'gb')
+// const myCounter = new Counter()
+// const myNationality = new Nationality()
+// myNationality.setAttribute('code', 'gb')
 
-setTimeout(function () {
-  document.body.appendChild(myCounter)
-  document.body.appendChild(myNationality)
-}, 5000)
+// setTimeout(function () {
+//   document.body.appendChild(myCounter)
+//   document.body.appendChild(myNationality)
+// }, 5000)
+
 },{"../..":16,"./custom-elements/counter":1,"./custom-elements/footer":3,"./custom-elements/header":5,"./custom-elements/main":7,"./custom-elements/profile":13,"./custom-elements/profile-image":9,"./custom-elements/profile-nationality":11,"hyperapp":18}],16:[function(require,module,exports){
 var app = require('hyperapp').app
 var CEV0Component = require('ce-v0/comp')
@@ -291,8 +278,8 @@ function hyperappCustomElement (options) {
       observedAttributes.forEach(function (name) {
         if (el.hasAttribute(name)) {
           var item = {}
-          item[name] = el.getAttribute('code')
-          this.actions.__applyState(item)
+          item[name] = el.getAttribute(name)
+          el.actions.__applyState(item)
         }
       })
     }

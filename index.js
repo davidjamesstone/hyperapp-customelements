@@ -22,8 +22,8 @@ function hyperappCustomElement (options) {
       observedAttributes.forEach(function (name) {
         if (el.hasAttribute(name)) {
           var item = {}
-          item[name] = el.getAttribute('code')
-          this.actions.__applyState(item)
+          item[name] = el.getAttribute(name)
+          el.actions.__applyState(item)
         }
       })
     }

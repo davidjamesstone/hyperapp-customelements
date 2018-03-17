@@ -2,9 +2,6 @@
 
 `hyperapp-customelements` is a tiny (3KB) Web Components [Custom Elements library](#custom-elements) based on `hyperapp`.
 
-
-## Custom Elements
-
 Define Custom Elements that:
 
 - work in all evergreen browsers and IE10.
@@ -27,11 +24,10 @@ const MyElement = define({
 
   // Optional
   state: {
-    counter: 0
+    // Initial hyperapp state
   },
   actions: {
-    down: () => state => ({ counter: state.counter - 1 }),
-    up: () => state => ({ counter: state.counter + 1 })
+    // Hyperapp actions
   },
   constructor () {
     // Wired actions are now available as `this.actions`
@@ -53,15 +49,48 @@ const MyElement = define({
 })
 ```
 
+Then use declaratively
+
 ```html
 <my-element></my-element>
 ```
 
+or programmatically
 
 ```js
 const myElement = new MyElement()
 document.body.appendChild(myElement)
 ```
+
+## Example
+
+```js
+const define = require('hyperapp-customelements')
+
+define({
+  name: 'x-counter',
+  state: {
+    counter: 0
+  },
+  actions: {
+    down: value => state => ({ count: state.count - value }),
+    up: value => state => ({ count: state.count + value })
+  },
+  view: (state, actions) => (
+    <div>
+      <h1>{state.count}x</h1>
+      <button onclick={() => actions.down(1)} disabled={state.count <= 0}>ー</button>
+      <button onclick={() => actions.up(1)} disabled={state.count >= state.max}>＋</button>
+    </div>
+  ),
+  observedAttributes: ['max']
+})
+```
+
+```html
+<x-counter max="10"></x-counter>
+```
+# Notes
 
 You may notice that the API looks like Custom Elements V1, however the decision was taken to 
 initially [target Custom Elements V0](https://github.com/WebReflection/ce-v0) but with a V1 flavour so, when V1 is widely supported, the upgrade will be simple. See [this article](https://medium.com/@WebReflection/a-custom-elements-v0-grampafill-dc1319420e9b) for more information. Huge thanks to [Andrea Giammarchi](https://github.com/WebReflection) for all his work in this area.
