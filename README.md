@@ -85,7 +85,7 @@ define({
   },
   view: (state, actions) => (
     <div>
-      <h1>{state.count}x</h1>
+      <h1>{state.count}</h1>
       <button onclick={() => actions.down(1)} disabled={state.count <= 0}>ー</button>
       <button onclick={() => actions.up(1)} disabled={state.count >= state.max}>＋</button>
     </div>
