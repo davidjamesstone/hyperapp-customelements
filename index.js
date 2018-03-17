@@ -31,7 +31,7 @@ function hyperappCustomElement (options) {
 
   var opts = {}
   if (typeof ctor === 'function') {
-    opts['constructor'] = function () {
+    opts.constructor = function () {
       this.actions = app(state, actions, view, this)
 
       ctor.call(this)
@@ -41,7 +41,7 @@ function hyperappCustomElement (options) {
       }
     }
   } else {
-    opts['constructor'] = function () {
+    opts.constructor = function () {
       this.actions = app(state, actions, view, this)
 
       if (mapAttrsToState) {
