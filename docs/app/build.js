@@ -9,7 +9,7 @@ module.exports = {
     up: () => state => ({ counter: state.counter + 1 })
   },
   view: require('./view.html'),
-  observedAttributes: ['max']
+  observedAttributes: [{ max: Number }]
 }
 
 },{"./view.html":2}],2:[function(require,module,exports){
@@ -24,7 +24,6 @@ module.exports = function view (state, actions) {
 },{}],3:[function(require,module,exports){
 module.exports = {
   name: 'x-footer',
-  mapAttrsToState: false,
   view: require('./view.html')
 }
 
@@ -42,7 +41,6 @@ module.exports = {
   state: {
     showMenu: false
   },
-  mapAttrsToState: false,
   actions: {
     toggleMenu: () => (state) => ({ showMenu: !state.showMenu })
   },
@@ -273,21 +271,51 @@ function hyperappCustomElement (options) {
     }
   } : {}, options.actions)
 
+  var opts = {}
+  var converters = {}
+  if (hasObservedAttributes) {
+    opts.observedAttributes = []
+    observedAttributes.forEach(function (attr) {
+      if (typeof attr === 'string') {
+        opts.observedAttributes.push(attr)
+      } else {
+        var name = Object.keys(attr)[0]
+        opts.observedAttributes.push(name)
+        if (typeof attr[name] === 'function') {
+          converters[name] = attr[name]
+        }
+      }
+    })
+  }
+
+  function convert (name, value) {
+    var converter = converters[name]
+
+    if (converter) {
+      if (converter === Boolean) {
+        return value !== 'false' && value !== '0'
+      }
+
+      return converters[name](value)
+    }
+
+    return value
+  }
+
   function mapToState (el) {
     if (hasObservedAttributes) {
-      observedAttributes.forEach(function (name) {
+      opts.observedAttributes.forEach(function (name) {
         if (el.hasAttribute(name)) {
           var item = {}
-          item[name] = el.getAttribute(name)
+          item[name] = convert(name, el.getAttribute(name))
           el.actions.__applyState(item)
         }
       })
     }
   }
 
-  var opts = {}
   if (typeof ctor === 'function') {
-    opts['constructor'] = function () {
+    opts.constructor = function () {
       this.actions = app(state, actions, view, this)
 
       ctor.call(this)
@@ -297,7 +325,7 @@ function hyperappCustomElement (options) {
       }
     }
   } else {
-    opts['constructor'] = function () {
+    opts.constructor = function () {
       this.actions = app(state, actions, view, this)
 
       if (mapAttrsToState) {
@@ -323,7 +351,7 @@ function hyperappCustomElement (options) {
 
       if (mapAttrsToState) {
         var partial = {}
-        partial[name] = newValue
+        partial[name] = convert(name, newValue)
         this.actions.__applyState(partial)
       }
     }
@@ -343,6 +371,7 @@ function hyperappCustomElement (options) {
       case 'state':
       case 'actions':
       case 'constructor':
+      case 'observedAttributes':
       case 'attributeChangedCallback':
         break
       default:

@@ -34,7 +34,12 @@ const MyElement = define({
   constructor () {
     // Wired actions are now available as `this.actions`
   },
-  observedAttributes: Array, // Array of attribute names to observe
+  // Attributes to observe.
+  // Each item in the array must be a string or an object.
+  // Use an object to provide a conversion function.
+  // The function is used to convert the value from a string when reflecting to state
+  // E.g ['title', { max: Number }, { show: Boolean }, { custom: (value) => {...} }, 'another']
+  observedAttributes: Array,
   attributeChangedCallback (name, oldValue, newValue) {
     // Invoked when an observed attribute changes.
     // Attribute changes are reflected to state by default.
@@ -85,7 +90,7 @@ define({
       <button onclick={() => actions.up(1)} disabled={state.count >= state.max}>＋</button>
     </div>
   ),
-  observedAttributes: ['max']
+  observedAttributes: [{ max: Number }]
 })
 ```
 

@@ -8,5 +8,5 @@ module.exports = {
     up: () => state => ({ counter: state.counter + 1 })
   },
   view: require('./view.html'),
-  observedAttributes: ['max']
+  observedAttributes: [{ max: Number }]
 }

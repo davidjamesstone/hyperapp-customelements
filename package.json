@@ -1,6 +1,6 @@
 {
   "name": "hyperapp-customelements",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "W3C Web Components Custom Elements library for hyperapp",
   "main": "index.js",
   "scripts": {
