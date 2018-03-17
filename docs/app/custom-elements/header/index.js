@@ -3,6 +3,7 @@ module.exports = {
   state: {
     showMenu: false
   },
+  mapAttrsToState: false,
   actions: {
     toggleMenu: () => (state) => ({ showMenu: !state.showMenu })
   },

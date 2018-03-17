@@ -1,0 +1,11 @@
+<div class="field has-addons">
+  <p class="control">
+    <button class="button" onclick={actions.down()} disabled={!state.counter}>-</button>
+  </p>
+  <p class="control">
+    <input class="input" type="text" value={state.counter} readonly=readonly>
+  </p>
+  <p class="control">
+    <button class="button" onclick={actions.up()} disabled="{state.max && state.counter >= state.max}">+</button>
+  </p>
+</div>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <link rel="stylesheet" href="app/custom-elements/profile-nationality/flags/flags.css">
+  <script src="app/build.js"></script>
+  <style>
+    x-profile { display: block; margin-bottom: 10px; }
+    x-profile-nationality { margin-right: 5px; }
+
+    x-main, x-footer, x-header, x-counter, x-profile {
+      display: block;
+    }
+
+    x-profile-image, x-profile-nationality {
+      display: inline-block;
+    }
+
+    .highlight x-main, .highlight x-footer, .highlight x-header, 
+    .highlight x-counter, .highlight x-profile, .highlight x-profile-nationality,
+    .highlight x-profile-image {
+      box-shadow: 0px 0px 5px 3px rgba(255, 105, 180, 0.55);
+    }
+  </style>
+</head>
+<body>
+  <x-header></x-header>
+  <section class="section">
+    <div class="container">
+      <main>
+        <h1 class="title">
+          hyperapp-customelements example
+        </h1>
+        <p class="subtitle">
+          Check out the source code <a href="/tree/master/docs/app">here</a>.
+          <br>
+          The user profiles are loaded dynamically from <a target="_blank" href="https://randomuser.me">randomuser.me</a>.
+          <br>
+          Styling courtesy of <a target="_blank" href="https://bulma.io">bulma.io</a>.
+        </p>
+
+        <!-- Toggle Hightlight Custom Elements -->
+        <p>
+        Hightlight Custom Elements: 
+        <input type="checkbox"
+          onchange="document.body.classList.toggle('highlight')">
+        </p>
+
+        <x-main></x-main>
+      </main>
+    </div>
+  </section>
+  <x-footer></x-footer>
+</body>
+</html>

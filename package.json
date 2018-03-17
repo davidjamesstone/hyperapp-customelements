@@ -1,7 +1,7 @@
 {
   "name": "hyperapp-customelements",
   "version": "0.0.1",
-  "description": "Web Components Custom Elements library for hyperapp",
+  "description": "W3C Web Components Custom Elements library for hyperapp",
   "main": "index.js",
   "scripts": {
     "test": "standard",
@@ -28,13 +28,15 @@
   "devDependencies": {
     "browserify": "^15.2.0",
     "ce-v0": "^0.2.2",
+    "exorcist": "^1.0.1",
     "hyperapp": "^1.1.2",
     "hyperviewify": "^1.0.0",
     "standard": "^10.0.3"
   },
   "standard": {
     "ignore": [
-      "examples"
+      "docs/app/build.js"
     ]
-  }
+  },
+  "dependencies": {}
 }

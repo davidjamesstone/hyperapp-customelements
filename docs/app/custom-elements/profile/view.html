@@ -9,7 +9,8 @@
       <div class="media">
         <div class="media-left">
           <figure class="image is-48x48">
-              <x-profile-image mode="thumbnail" url="{state.user.picture.large}"></x-profile-image>
+            <x-profile-image size="thumbnail"
+              url="{state.user.picture.large}"></x-profile-image>
           </figure>
         </div>
         <div class="media-content">
@@ -19,7 +20,9 @@
             {state.user.name.last}
           </p>
           <p class="subtitle is-6">
-            <x-profile-nationality code="{state.user.nat}"></x-profile-nationality> {state.user.id.name}
+            <x-profile-nationality
+              code="{state.user.nat}"></x-profile-nationality>
+              {state.user.id.name}
           </p>
         </div>
       </div>

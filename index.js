@@ -1,16 +1,53 @@
 var app = require('hyperapp').app
 var CEV0Component = require('ce-v0/comp')
 
-function hyperviews (options) {
+function hyperappCustomElement (options) {
   var view = options.view
   var state = options.state
-  var actions = options.actions
   var ctor = options.constructor
+  var mapAttrsToState = 'mapAttrsToState' in options
+    ? !!options.mapAttrsToState
+    : true
 
-  var opts = {
-    constructor: (typeof ctor === 'function')
-      ? function () { this.actions = app(state, actions, view, this); ctor.call(this) }
-      : function () { this.actions = app(state, actions, view, this) }
+  var observedAttributes = options.observedAttributes
+  var hasObservedAttributes = Array.isArray(observedAttributes)
+  var actions = Object.assign(mapAttrsToState ? {
+    __applyState: (item) => (state) => {
+      return item
+    }
+  } : {}, options.actions)
+
+  function mapToState (el) {
+    if (hasObservedAttributes) {
+      observedAttributes.forEach(function (name) {
+        if (el.hasAttribute(name)) {
+          var item = {}
+          item[name] = el.getAttribute('code')
+          this.actions.__applyState(item)
+        }
+      })
+    }
+  }
+
+  var opts = {}
+  if (typeof ctor === 'function') {
+    opts['constructor'] = function () {
+      this.actions = app(state, actions, view, this)
+
+      ctor.call(this)
+
+      if (mapAttrsToState) {
+        mapToState(this)
+      }
+    }
+  } else {
+    opts['constructor'] = function () {
+      this.actions = app(state, actions, view, this)
+
+      if (mapAttrsToState) {
+        mapToState(this)
+      }
+    }
   }
 
   // Only fire attributeChangedCallback
@@ -18,25 +55,28 @@ function hyperviews (options) {
   var onattribute
   var attributeChangedCallback = options.attributeChangedCallback
 
-  if (attributeChangedCallback) {
-    if (Array.isArray(options.observedAttributes)) {
-      var observedAttributes = options.observedAttributes
+  if (hasObservedAttributes) {
+    onattribute = function (name, oldValue, newValue) {
+      if (observedAttributes.indexOf(name) < 0) {
+        return
+      }
 
-      onattribute = function (name, oldValue, newValue) {
-        if (observedAttributes && observedAttributes.indexOf(name) < 0) {
-          return
-        }
-
+      if (attributeChangedCallback) {
         attributeChangedCallback.call(this, name, oldValue, newValue)
       }
+
+      if (mapAttrsToState) {
+        var partial = {}
+        partial[name] = newValue
+        this.actions.__applyState(partial)
+      }
     }
+
+    opts.onattribute = onattribute
   }
 
   for (var key in options) {
     switch (key) {
-      case 'attributeChangedCallback':
-        opts.onattribute = onattribute
-        break
       case 'connectedCallback':
         opts.onconnected = options[key]
         break
@@ -47,6 +87,7 @@ function hyperviews (options) {
       case 'state':
       case 'actions':
       case 'constructor':
+      case 'attributeChangedCallback':
         break
       default:
         opts[key] = options[key]
@@ -57,4 +98,4 @@ function hyperviews (options) {
   return new CEV0Component(opts)
 }
 
-module.exports = hyperviews
+module.exports = hyperappCustomElement
