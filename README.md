@@ -12,6 +12,8 @@ Define Custom Elements that:
   - Virtual DOM updates
 - provide a solid migration path to Custom Elements V1
 
+See it in action [here](https://davidjamesstone.github.io/hyperapp-customelements/)
+
 ```js
 const define = require('hyperapp-customelements')
 

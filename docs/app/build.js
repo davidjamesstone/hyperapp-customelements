@@ -244,14 +244,14 @@ var Nationality = define(require('./custom-elements/profile-nationality'))
 var Counter = define(require('./custom-elements/counter'))
 
 // Demo programmatically added elements
-// const myCounter = new Counter()
-// const myNationality = new Nationality()
-// myNationality.setAttribute('code', 'gb')
+const myCounter = new Counter()
+const myNationality = new Nationality()
+myNationality.setAttribute('code', 'gb')
 
-// setTimeout(function () {
-//   document.body.appendChild(myCounter)
-//   document.body.appendChild(myNationality)
-// }, 5000)
+setTimeout(function () {
+  document.body.appendChild(myCounter)
+  document.body.appendChild(myNationality)
+}, 5000)
 
 },{"../..":16,"./custom-elements/counter":1,"./custom-elements/footer":3,"./custom-elements/header":5,"./custom-elements/main":7,"./custom-elements/profile":13,"./custom-elements/profile-image":9,"./custom-elements/profile-nationality":11,"hyperapp":18}],16:[function(require,module,exports){
 var app = require('hyperapp').app
